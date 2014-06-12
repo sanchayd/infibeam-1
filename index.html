@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en" ng-app="phonecatApp">
+
+<head>
+    <meta charset="utf-8">
+    <title>Google Phone Gallery</title>
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/metro-bootstrap.css">
+    <link rel="stylesheet" href="css/mycss.css">
+    <link rel="stylesheet" href="css/metro-bootstrap-responsive.css">
+    <!-- <link rel="stylesheet" href="css/element.css"> -->
+
+    <!--<script src="bower_components/jquery/src/jquery.js"></script>-->
+    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="bower_components/angular-resource/angular-resource.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/animations.js"></script>
+    <script src="js/controllers.js"></script>
+    <script src="js/filters.js"></script>
+    <script src="js/services.js"></script>
+</head>
+<body>
+    <script type="text/javascript">   
+
+        var max = 250;
+        var noItems = 0;
+        var xname;
+        function removeLine(x) {
+             xname = x.substring(0,x.length-3);
+             $('#' + x).remove();
+            noItems--;
+            console.log(xname);
+            $('#'+xname).attr('disabled', false);
+            $('#second').height(noItems * 40);
+        }
+        function add(x) {
+
+
+        var dataMain=null;
+
+
+        //------------------------
+       
+    var myItems;
+    $.getJSON('/phones.json', function(data) {
+        for (var i=0;i<20;i++){
+        myItems = data[i].id;
+        //alert(myItems);
+       if(myItems==x.id){
+        dataMain=(data[i].name);
+      //  alert(dataMain);
+noItems++;
+         document.getElementById("nn").innerHTML += "<p  id='"+x.id+"bar' class='bg-danger'><img src='img/phones/motorola-atrix-4g.2.jpg' height='35px' width='35px'><a href='#/phones/" + x.id + "'>" + dataMain + "</a>" + "<button type='button' style='float:right' class='btn btn-default btn-xs' onclick=removeLine('"+x.id+"bar')><span  class='glyphicon glyphicon-remove'></span></button></p>";
+            $(x).attr('disabled', 'disabled');
+            if ($('#second').height() < max)
+                $('#second').height(noItems * 40);
+
+        break;
+   }
+
+    }
+    
+
+});
+//alert(myItems);
+console.log(dataMain);
+            
+        }
+        function toggle_visibility(id) {
+            $('#' + id).slideToggle();
+            // var e = document.getElementById(id);
+            // if(e.style.display == 'block')
+            //    e.style.display = 'none';
+            // else
+            //    e.style.display = 'block';
+        }
+    </script>
+    <div class="view-container" style={ "position:absolute;">
+        <div ng-view class="view-frame"></div>
+    </div>
+<div class="panel" data-role="panel">
+    <div id="third" style="width:250px;height:40px;border-style:groove;
+    border-width: 2px; position:fixed;bottom:0px;right:25px;background-color:grey"  >
+        <button id="aa" style="top:10%;left:25%;position:absolute" onmouseover:"changeColor()" onclick="toggle_visibility('second')" class="btn btn-primary">Your Saved Items</button>
+    </div>
+    <div  id="second" style="overflow:auto;width:250px;bottom:40px; position:fixed;right: 25px;
+      background-color:#CC9966;border-style:groove;border-color:#990000;
+    border-width: 2px;">
+        <p id="nn"></p>
+        <div sf-scroller="y = 0 to eventLog.length" ng-model="slicePosition"></div>
+    </div>
+</div>
+</body>
+</html>
