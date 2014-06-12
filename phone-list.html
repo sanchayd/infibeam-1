@@ -1,0 +1,66 @@
+<div class="container-fluid">
+
+
+
+  <div class="row">
+    <div class="col-md-2">
+      <!--Sidebar content-->
+
+      Search: <input ng-model="query">
+      Sort by:
+      <select ng-model="orderProp">
+        <option value="name">Alphabetical</option>
+        <option value="age">Newest</option>
+      </select>
+
+    </div>
+
+
+    <div class="col-md-5">
+      <!--Body content-->
+    
+      <ul class="phones">
+        <li  ng-repeat="phone in phones | filter:query | orderBy:orderProp"
+            class="thumbnail phone-listing ">
+           <!--  <button id="{{phone.id}}" type="button" onclick=add(this) class="btn btn-primary" data-toggle="button">Add</button> -->
+
+
+
+
+
+
+    <!--   <div class="viewThisResult">
+          <a type="button" id="{{phone.id}}" class="mini-listing gray button" onclick=add(this) href="property/1909201136430">
+          Add</a>
+      </div>   -->
+
+
+
+
+
+
+
+
+
+           <button type="button" id="{{phone.id}}" class="btn btn-default btn-lg" onclick=add(this)>
+  <span class="glyphicon glyphicon-star"></span>Add
+</button>
+
+
+
+
+          <a href="#/phones/{{phone.id}}" class="thumb">
+
+            <img ng-src="{{phone.imageUrl}}"  id = "{{phone.id}} "  ;  ></a>
+          <a href="#/phones/{{phone.id}}" id="{{phone.id}} "  >{{phone.name}}</a>
+          <p>{{phone.snippet}}</p>
+        </li>
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+<div class="col-md-3" style="float:right;">
+<p id="demo" > hel </p>
+</div
